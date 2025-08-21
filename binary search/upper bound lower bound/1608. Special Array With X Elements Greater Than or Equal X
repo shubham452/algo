@@ -1,0 +1,42 @@
+1608. Special Array With X Elements Greater Than or Equal X
+
+https://leetcode.com/problems/special-array-with-x-elements-greater-than-or-equal-x/solutions/7105681/binary-search-lower-and-upper-bound-by-s-gj4c/
+
+class Solution {
+public:
+//here we have to find the lower bound
+    int specialArray(vector<int>& nums) 
+    {
+        int n=nums.size();
+        sort(nums.begin(),nums.end());
+        
+        int i;
+        for(i=1;i<=n;i++)
+        {
+            int l=0;
+            int r=n-1;
+            while(l<=r)
+            {
+                int mid=(l+r)/2;
+//here we have to find the lower bound which changes the if else condition
+                if(nums[mid]>=i)
+                {
+                    r=mid-1;
+                }
+                else 
+                {
+                    l=mid+1;
+                }
+            }
+                    int left=n-l;
+                    if(left==i)
+                    {
+                        return i;
+                        break;
+                    }
+                
+            
+        }
+        return -1;
+    }
+};
