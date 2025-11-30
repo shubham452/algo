@@ -1,42 +1,41 @@
 1608. Special Array With X Elements Greater Than or Equal X
 
-https://leetcode.com/problems/special-array-with-x-elements-greater-than-or-equal-x/solutions/7105681/binary-search-lower-and-upper-bound-by-s-gj4c/
+https://leetcode.com/problems/special-array-with-x-elements-greater-than-or-equal-x/solutions/7382886/binary-search-lower-bound-by-shubham_sk7-bun0/
 
 class Solution {
 public:
-//here we have to find the lower bound
+    int lower(vector<int> &nums, int target)
+    {
+        int l=0;
+        int r=nums.size()-1;
+        int ans;
+        while(l<=r)
+        {
+            int mid=l+(r-l)/2;
+            if(nums[mid]>=target)
+            {
+                ans=mid;
+                r=mid-1;
+            }
+            else
+            {
+                l=mid+1;
+            }
+        }
+        return ans;
+    }
     int specialArray(vector<int>& nums) 
     {
-        int n=nums.size();
         sort(nums.begin(),nums.end());
-        
-        int i;
-        for(i=1;i<=n;i++)
+        for(int i=1;i<=nums.size();i++)
         {
-            int l=0;
-            int r=n-1;
-            while(l<=r)
+            int x= lower(nums,i);
+            int left=nums.size()-x;
+            if(left-i==0)
             {
-                int mid=(l+r)/2;
-//here we have to find the lower bound which changes the if else condition
-                if(nums[mid]>=i)
-                {
-                    r=mid-1;
-                }
-                else 
-                {
-                    l=mid+1;
-                }
+                return i;
             }
-                    int left=n-l;
-                    if(left==i)
-                    {
-                        return i;
-                        break;
-                    }
-                
-            
-        }
+        }    
         return -1;
     }
 };
