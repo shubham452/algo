@@ -1,16 +1,32 @@
 744. Find Smallest Letter Greater Than Target
 
-https://leetcode.com/problems/find-smallest-letter-greater-than-target/solutions/7105754/binary-search-upper-bound-by-shubham_sk7-o3yr/
+https://leetcode.com/problems/find-smallest-letter-greater-than-target/solutions/7383408/binary-search-upper-bound-by-shubham_sk7-tao0/
 
 class Solution {
 public:
+    int upper(vector<char>& letters, char target)
+    {
+        int l=0;
+        int r=letters.size()-1;
+        int ans=0;
+        while(l<=r)
+        {
+            int mid=l+(r-l)/2;
+            if(letters[mid]>target)
+            {
+                ans=mid;
+                r=mid-1;
+            }
+            else
+            {
+                l=mid+1;
+            }
+        }
+        return ans;
+    }
     char nextGreatestLetter(vector<char>& letters, char target) 
     {
-        auto it=upper_bound(letters.begin(), letters.end(), target);
-        if(it==letters.end())
-        {
-            return letters[0];
-        }
-        return *it;
+        
+        return letters[upper(letters,target)];
     }
 };
