@@ -1,0 +1,36 @@
+1297. Maximum Number of Occurrences of a Substring
+https://leetcode.com/problems/maximum-number-of-occurrences-of-a-substring/solutions/7089190/sliding-window-dynamic-size-by-shubham_s-oadp/
+
+
+class Solution {
+public:
+    int maxFreq(string s, int maxLetters, int minSize, int maxSize) 
+    {
+        unordered_map<string,int> string_mp; 
+        unordered_map<char,int> count_mp;
+
+        int left=0;
+        int right=0;
+        int ans=0;
+        for(right=0;right<s.size();right++)
+        {
+            count_mp[s[right]]++;
+            if(right-left+1>minSize)
+            {
+                count_mp[s[left]]--;
+                if(count_mp[s[left]]==0)
+                {
+                    count_mp.erase(s[left]);
+                }
+                left++;
+            }
+            if((right-left+1==minSize) && count_mp.size() <= maxLetters)
+            {
+                string temp = s.substr(left,minSize);
+                string_mp[temp]++;
+                ans=max(ans,string_mp[temp]);
+            }
+        }  
+        return ans;
+    }
+};
